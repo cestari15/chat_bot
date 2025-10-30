@@ -1,0 +1,390 @@
+/*
+=====================================================
+1. Definição de Variáveis CSS (Tema Claro e Escuro)
+=====================================================
+*/
+
+:root {
+    /* --- LIGHT MODE (PADRÃO) --- */
+    --color-primary: #1a73e8; /* Azul Google (Ações) */
+    --color-background-page: #f8f9fa; /* Fundo principal da página */
+    --color-background-app: #ffffff; /* Fundo do container da app e sidebar */
+    --color-background-chat: #eef1f6; /* Fundo da área de chat */
+    --color-text-primary: #3c4043; /* Texto principal (quase preto) */
+    --color-text-secondary: #80868b; /* Texto placeholder/secundário (Cinza médio) */
+    --color-border: #dadce0; /* Linhas de borda e separação */
+    --color-chat-user: var(--color-primary); /* Balão do usuário (Azul) */
+    --color-chat-bot: #ffffff; /* Balão do bot (Branco) */
+    --color-chat-bot-border: var(--color-border);
+    --color-selected-item: #e8f0fe; /* Fundo de item selecionado (Azul claro) */
+    --color-avatar: #6c757d; /* Cor do ícone no input */
+}
+
+.dark-mode {
+    /* --- DARK MODE --- */
+    --color-primary: #8ab4f8; /* Azul claro para contraste no escuro */
+    --color-background-page: #1e1e1e;
+    --color-background-app: #2c2c2c;
+    --color-background-chat: #383838;
+    --color-text-primary: #e8eaed;
+    --color-text-secondary: #9aa0a6;
+    --color-border: #505050;
+    --color-chat-user: var(--color-primary);
+    --color-chat-bot: #484848;
+    --color-chat-bot-border: #505050;
+    --color-selected-item: #414141;
+    --color-avatar: #e8eaed; 
+}
+
+
+/*
+=====================================================
+2. Container Geral e Estrutura
+=====================================================
+*/
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-background-page);
+    color: var(--color-text-primary);
+    font-family: 'Roboto', 'Arial', sans-serif;
+    transition: background-color 0.3s;
+}
+
+.app-container {
+    display: flex;
+    max-width: 1200px; 
+    height: 90vh;
+    margin: 5vh auto; 
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25), 0 4px 8px rgba(0, 0, 0, 0.1); 
+    background-color: var(--color-background-app);
+}
+
+
+/*
+=====================================================
+3. Barra Lateral (Sidebar)
+=====================================================
+*/
+.sidebar {
+    width: 280px;
+    padding: 24px 20px;
+    background-color: var(--color-background-app);
+    border-right: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.sidebar h2 {
+    font-size: 22px;
+    color: var(--color-text-primary);
+    margin: 0;
+    font-weight: 500;
+}
+
+.theme-toggle-button {
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    display: flex;
+}
+.theme-toggle-button:hover {
+    background-color: var(--color-background-chat);
+}
+
+/* Nova Conversa Input */
+.input-group {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px 0 0 8px;
+    outline: none;
+    font-size: 15px;
+    background-color: var(--color-background-app);
+    color: var(--color-text-primary);
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    border-color: var(--color-primary);
+}
+
+.input-group button {
+    background-color: var(--color-primary);
+    color: var(--color-background-app);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.input-group button:hover {
+    background-color: #185abc; 
+}
+
+/* Lista de Conversas */
+.conversation-list {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.conversation-list p {
+    color: var(--color-text-secondary);
+    font-style: italic;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.conversation-item {
+    padding: 12px 15px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    border-radius: 8px;
+    color: var(--color-text-primary);
+    font-size: 15px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.conversation-item:hover {
+    background-color: var(--color-background-chat); 
+}
+
+.conversation-item.selected {
+    background-color: var(--color-selected-item);
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+
+/*
+=====================================================
+4. Área de Chat (Principal e Mensagens)
+=====================================================
+*/
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-background-chat);
+    position: relative;
+}
+
+.chat-area .header {
+    padding: 18px 30px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    background-color: var(--color-background-app);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.messages {
+    flex-grow: 1;
+    padding: 20px 30px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Placeholder (Sem Conversa) */
+.no-conversation {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: 16px;
+}
+.no-conversation h3 {
+    color: var(--color-text-primary);
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.no-conversation p {
+    font-size: 15px;
+    color: var(--color-text-secondary);
+}
+.no-conversation svg {
+    color: var(--color-border) !important;
+}
+
+
+/*
+=====================================================
+5. Estilo das Mensagens (Balões)
+=====================================================
+*/
+
+/* Wrapper para alinhamento */
+.message-wrapper {
+    display: flex;
+    max-width: 100%;
+}
+
+.message-wrapper.user-wrapper {
+    justify-content: flex-end; 
+}
+.message-wrapper.bot-wrapper {
+    justify-content: flex-start;
+}
+
+
+/* Estilo do Balão */
+.message {
+    max-width: 70%; 
+    padding: 12px 18px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    flex-shrink: 1;
+}
+
+.message.user {
+    background-color: var(--color-chat-user);
+    color: white;
+    border-bottom-right-radius: 5px;
+}
+
+.message.bot {
+    background-color: var(--color-chat-bot);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-chat-bot-border);
+    border-bottom-left-radius: 5px;
+}
+
+
+/*
+=====================================================
+6. Formulário de Envio (Input com Ícone)
+=====================================================
+*/
+.message-form {
+    padding: 20px 30px;
+    border-top: 1px solid var(--color-border);
+    background-color: var(--color-background-app);
+    display: flex;
+    align-items: center;
+}
+
+/* Container do Input: Posiciona o ícone */
+.input-container {
+    flex-grow: 1;
+    position: relative; 
+}
+
+/* Estilo do Ícone (Prefix) */
+.input-prefix {
+    position: absolute;
+    top: 50%;
+    left: 20px; 
+    transform: translateY(-50%);
+    color: var(--color-text-secondary); 
+    z-index: 2; 
+    display: flex;
+}
+
+.message-form input {
+    flex-grow: 1;
+    /* Padding modificado para acomodar o ícone */
+    padding: 15px 20px 15px 50px; 
+    border-radius: 28px;
+    border: 1px solid var(--color-border);
+    outline: none;
+    font-size: 16px;
+    background-color: var(--color-background-app);
+    color: var(--color-text-primary);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.message-form input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(26, 115, 232, 0.1);
+}
+
+/* Botão de Envio */
+.message-form button {
+    background-color: var(--color-primary);
+    color: var(--color-background-app);
+    border: none;
+    padding: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 15px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.message-form button:hover:not(:disabled) {
+    background-color: #185abc;
+}
+
+.message-form button:disabled {
+    background-color: var(--color-text-secondary);
+    cursor: not-allowed;
+}
+
+
+/*
+=====================================================
+7. Indicador de Digitação
+=====================================================
+*/
+.typing-indicator {
+    background-color: var(--color-selected-item); 
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-text-secondary);
+    border-radius: 50%;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+.dot:nth-child(3) { animation-delay: 0s; }
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
