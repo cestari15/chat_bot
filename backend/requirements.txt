@@ -1,0 +1,14 @@
+fastapi==0.111.0
+uvicorn==0.30.1
+langchain==0.1.16
+langchain-community==0.0.38
+langchain-core==0.1.53
+langchain-text-splitters==0.0.2
+mysql-connector-python==8.4.0
+python-dotenv==1.0.1
+pydantic==1.10.14
+requests==2.31.0
+numpy==1.26.4
+tenacity==8.5.0
+PyYAML==6.0.2
+dataclasses-json==0.6.7
