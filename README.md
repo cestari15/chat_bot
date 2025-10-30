@@ -124,27 +124,7 @@ DELETE FROM messages;
 
 ---
 
-## 🔐 Solução de Problemas Comuns
 
-### ❌ Erro CORS
-Se ocorrer algo como:
-```
-Access to XMLHttpRequest... No 'Access-Control-Allow-Origin' header
-```
-Adicione no `app.py`:
-```python
-from fastapi.middleware.cors import CORSMiddleware
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-```
-
----
 
 ## 🧠 Exemplos de Prompt
 ```bash
@@ -157,13 +137,7 @@ IA: O LangChain é um framework que facilita a criação de aplicações que usa
 
 ---
 
-## 🏁 Futuras Melhorias
-- Implementar login e múltiplos usuários
-- Adicionar suporte a múltiplos modelos (Gemini 1.5 / Claude / Mistral)
-- Criar logs de sessões no banco
-- Interface mais dinâmica com histórico lateral
 
----
 
 ## 🧑‍💻 Autor
 **Rafael Cestari**  
